@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from "./logo.jpg";
-import { ListGroup, Alert } from 'react-bootstrap';
+import { ListGroup, Container, Row, Col } from 'react-bootstrap';
 //import { Button } from '@material-ui/core';
 
 class Nick extends Component {
@@ -94,7 +94,29 @@ class Nick extends Component {
     telaJogo = () => {
         return (
             <div>
-                <h1>Bora jogar!!</h1>
+                <h1>Bora jogar!! Separar por COR!!!</h1>
+                <Container>
+                    <Row>
+                        <Col>Texto Andamento</Col>
+                        <Col>Sair</Col>
+                    </Row>
+                    <Row>
+                        <Col>Jogador 1</Col>
+                        <Col>Jogador 2</Col>
+                        <Col>Jogador 3</Col>
+                    </Row>
+                    <Row>
+                        <Col>Jogador 4</Col>
+                        <Col>Mesa</Col>
+                        <Col>Jogador 5</Col>
+                    </Row>
+                    <Row>
+                        <Col>Comprar</Col>
+                        <Col>Jogador Principal</Col>
+                        <Col>Uno</Col>
+                        <Col>+4</Col>
+                    </Row>
+                </Container>
             </div>
         );
     }

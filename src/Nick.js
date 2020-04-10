@@ -97,8 +97,8 @@ class Nick extends Component {
                 <h1>Bora jogar!! Separar por COR!!!</h1>
                 <Container>
                     <Row>
-                        <Col>Texto Andamento</Col>
-                        <Col>Sair</Col>
+                        <Col sm = {8}>Texto Andamento</Col>
+                        <Col sm = {4}>Sair</Col>
                     </Row>
                     <Row>
                         <Col>Jogador 1</Col>

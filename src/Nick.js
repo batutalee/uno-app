@@ -172,8 +172,13 @@ class Nick extends Component {
         return (alert("Comprar Mais Quatro!"));
     }
 
-    gritarUno = () => {
-        return (alert("Uno!"));
+    gritarUno = (numeroCartas) => {
+        numeroCartas = 1
+        if(numeroCartas === 1){
+            return (alert("Uno!"));
+        } else {
+            return (alert("You shall not pass!"))
+        }
     }
 
     renderizarUnoMaisQuatro(nome) {
@@ -188,12 +193,12 @@ class Nick extends Component {
         );
     }
 
-    renderizarMesa(nome) {
+    renderizarMesa(nome, codigoCarta) {
         return (
             <Card>
                 <Card.Body>
                     <Card.Title>{nome}</Card.Title>
-
+                    <img src={carta2} />
                 </Card.Body>
             </Card>
         );
@@ -203,7 +208,7 @@ class Nick extends Component {
         var j;
         let cartasDaMao = [];
         //for (j = 0; j < 10; j++) {
-            cartasDaMao.push(<ListGroup.Item><Button><img src={carta1} /></Button></ListGroup.Item>)
+            cartasDaMao.push(<ListGroup.Item><Button><img src={carta1}/></Button></ListGroup.Item>)
             cartasDaMao.push(<ListGroup.Item><Button><img src={carta2} /></Button></ListGroup.Item>)
             cartasDaMao.push(<ListGroup.Item><Button><img src={carta3} /></Button></ListGroup.Item>)
             cartasDaMao.push(<ListGroup.Item><Button><img src={carta4} /></Button></ListGroup.Item>)
@@ -260,7 +265,7 @@ class Nick extends Component {
                     </Row>
                     <Row>
                         <Col>{this.renderizarJogador("Jogador 4", "3")}</Col>
-                        <Col>{this.renderizarMesa("Mesa")}</Col>
+                        <Col>{this.renderizarMesa("Mesa", "1")}</Col>
                         <Col>{this.renderizarJogador("Jogador 5", "3")}</Col>
                     </Row>
                     <Row>

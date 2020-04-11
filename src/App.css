@@ -20,3 +20,19 @@
 #botao-iniciar-jogo{
   margin-top: 30px;
 }
+#baralho-jogador{
+  width: 10%;
+}
+#botao-opcao{
+  
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#jig{
+  width: 50px;
+  height: 50px;
+}
+#baralho-comprar{
+  
+}

@@ -3,16 +3,25 @@ import ReactDom from "react-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from "./logo.jpg";
-import { ListGroup, Container, Row, Col } from 'react-bootstrap';
+import jigsaw from "./img/jigsaw.jpg";
+import baralho from "./img/baralho/baralho-jogador.png";
+import baralhocomprar from "./img/baralho/baralho-comprar.png";
+import { ListGroup, Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
+import carta1 from "./img/baralho/Amarelo/voltaamarelo.jpg";
+import carta2 from "./img/baralho/Amarelo/maisdoisamarelo.jpg";
+import carta3 from "./img/baralho/Neutro/mais4.jpg";
+import carta4 from "./img/baralho/Neutro/escolhecor.jpg";
 //import { Button } from '@material-ui/core';
 
 class Nick extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            acao: "Começou sa bagaça!",
+            cartas: "",
             nick: "",
             sala: "",
-            tela: this.telaNick()
+            tela: this.telaJogo()
         };
         //this.verificaJogo = this.verificaJogo.bind(this);
     }
@@ -91,30 +100,173 @@ class Nick extends Component {
             tela: this.telaJogo()
         });
     }
+
+    telaInicio = () => {
+        this.setState({
+            //reload na aplicação backend
+            tela: this.telaNick()
+        });
+    }
+
+    telaSaiuJogo = () => {
+
+        return (
+            <div>
+                <h1><font color="red">Algum FDP saiu da partida!</font></h1>
+                <h3>Você será redirecionado para a Tela de Nick em alguns segundos</h3>
+                {setTimeout(this.telaInicio, 3000)}
+            </div>
+
+        );
+
+    }
+
+    encerrarJogo = () => {
+        this.setState({
+            tela: this.telaSaiuJogo()
+        });
+    }
+
+    renderizarAdamento(texto, acaoAndamento) {
+
+        return (
+            <Card>
+                <Card.Title>{texto}</Card.Title>
+                <Card.Text>
+                    {acaoAndamento}
+                </Card.Text>
+            </Card>
+        );
+    }
+
+    renderizarJogador(nomeJogador, numeroCartas) {
+        return (
+            <Card>
+                <Card.Body>
+                    <Card.Title>{nomeJogador}</Card.Title>
+                    <Card.Text>
+                        Número de cartas: {numeroCartas}
+                    </Card.Text>
+                    <img id="baralho-jogador" src={baralho} />
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    renderizarComprar(nome) {
+        return (
+            <Card>
+                <Card.Body>
+                    <Card.Title>{nome}</Card.Title>
+                    <Button type="button" className="btn btn-primary"  onClick={this.comprou}><img id="baralho-comprar" src={baralhocomprar}/></Button>
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    comprou(){
+        alert("Comprou!");
+    }
+
+    comprarMaisQuatro = () => {
+        return (alert("Comprar Mais Quatro!"));
+    }
+
+    gritarUno = () => {
+        return (alert("Uno!"));
+    }
+
+    renderizarUnoMaisQuatro(nome) {
+        return (
+            <Card>
+                <Card.Body>
+                    <Card.Title>{nome}</Card.Title>
+                    <input id="botao-opcao" type="button" className="btn btn-primary" onClick={this.comprarMaisQuatro} value="+4" />
+                    <input id="botao-opcao" type="button" className="btn btn-primary" onClick={this.gritarUno} value="Uno" />
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    renderizarMesa(nome) {
+        return (
+            <Card>
+                <Card.Body>
+                    <Card.Title>{nome}</Card.Title>
+
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    cartasJogador = () => {
+        var j;
+        let cartasDaMao = [];
+        //for (j = 0; j < 10; j++) {
+            cartasDaMao.push(<ListGroup.Item><Button><img src={carta1} /></Button></ListGroup.Item>)
+            cartasDaMao.push(<ListGroup.Item><Button><img src={carta2} /></Button></ListGroup.Item>)
+            cartasDaMao.push(<ListGroup.Item><Button><img src={carta3} /></Button></ListGroup.Item>)
+            cartasDaMao.push(<ListGroup.Item><Button><img src={carta4} /></Button></ListGroup.Item>)
+        //}
+        return (
+            <div>
+                <ListGroup horizontal>
+                    {cartasDaMao}
+                </ListGroup>
+            </div>
+        );
+    }
+
+    renderizarJogadorPrincipal(nome) {
+        
+        return (
+            <div>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>{nome}</Card.Title>
+                        <div>{this.cartasJogador()}</div> 
+                    </Card.Body>
+                </Card>
+            </div>
+        );
+    }
+
+    sentidoJogo(){
+        var sentido = 1;
+        if (sentido === 1) {
+            return("Horário");
+        } else {
+            return("Anti-horário")
+        }
+    }
+
     telaJogo = () => {
         return (
             <div>
-                <h1>Bora jogar!! Separar por COR!!!</h1>
+                <div>
+                    <h1>Bora jogar!!</h1>
+                    <img className="img-fluid rounded-circle" id="jig" src={jigsaw} />
+                </div>
                 <Container>
                     <Row>
-                        <Col sm = {8}>Texto Andamento</Col>
-                        <Col sm = {4}>Sair</Col>
+                        <Col sm={8}>{this.renderizarAdamento("Andamento da Partida", "Vez do Jogador Chefe")}</Col>
+                        <Col sm={2}><h5>Sentido {this.sentidoJogo()}</h5></Col>
+                        <Col sm={2}><input id="botaoEntrar" type="button" className="btn btn-primary" onClick={this.encerrarJogo} value="Sair" /></Col>
                     </Row>
                     <Row>
-                        <Col>Jogador 1</Col>
-                        <Col>Jogador 2</Col>
-                        <Col>Jogador 3</Col>
+                        <Col>{this.renderizarJogador("Jogador 1", "3")}</Col>
+                        <Col>{this.renderizarJogador("Jogador 2", "3")}</Col>
+                        <Col>{this.renderizarJogador("Jogador 3", "3")}</Col>
                     </Row>
                     <Row>
-                        <Col>Jogador 4</Col>
-                        <Col>Mesa</Col>
-                        <Col>Jogador 5</Col>
+                        <Col>{this.renderizarJogador("Jogador 4", "3")}</Col>
+                        <Col>{this.renderizarMesa("Mesa")}</Col>
+                        <Col>{this.renderizarJogador("Jogador 5", "3")}</Col>
                     </Row>
                     <Row>
-                        <Col>Comprar</Col>
-                        <Col>Jogador Principal</Col>
-                        <Col>Uno</Col>
-                        <Col>+4</Col>
+                        <Col>{this.renderizarComprar("Comprar")}</Col>
+                        <Col>{this.renderizarJogadorPrincipal("Jogador Principal")}</Col>
+                        <Col>{this.renderizarUnoMaisQuatro("Opções")}</Col>
                     </Row>
                 </Container>
             </div>
@@ -124,7 +276,6 @@ class Nick extends Component {
     render(props) {
         return (
             <div className="container text-center" id="geral" >
-
                 {this.state.tela}
             </div >
         );
